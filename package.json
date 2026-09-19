@@ -4,8 +4,10 @@
   "description": "Starter Electron desktop app with tray, settings, and update stub",
   "main": "src/main.js",
   "scripts": {
+    "postinstall": "node scripts/ensure-electron.js",
     "start": "electron .",
-    "dev": "electron ."
+    "dev": "electron .",
+    "repair:electron": "node scripts/ensure-electron.js"
   },
   "keywords": [
     "electron",

@@ -8,7 +8,7 @@ A small starter Electron desktop app with a secure main / preload / renderer spl
 
 ## Requirements
 
-- Node.js 18+
+- Node.js 18+ (Node 20 LTS recommended; Node 24 works once the Electron binary is present)
 - npm
 
 ## Setup
@@ -19,6 +19,17 @@ npm start
 ```
 
 `npm run dev` does the same thing as `npm start` for this starter.
+
+### Windows: `Electron failed to install correctly`
+
+Sometimes npm finishes before the Electron binary is extracted. Fix with:
+
+```bash
+npm run repair:electron
+npm start
+```
+
+Or delete `node_modules/electron` and run `npm install` again (needs network).
 
 ## Project structure
 
@@ -35,6 +46,8 @@ src/
     settings.html   # Settings UI
     settings.css
     settings.js
+scripts/
+  ensure-electron.js  # Repairs a missing Electron binary after install
 ```
 
 ## Security defaults
