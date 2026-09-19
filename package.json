@@ -1,7 +1,7 @@
 {
   "name": "electron-demo",
   "version": "1.0.0",
-  "description": "Starter Electron desktop app",
+  "description": "Starter Electron desktop app with tray, settings, and update stub",
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",

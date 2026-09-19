@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings — Electron Demo</title>
+    <link rel="stylesheet" href="./settings.css" />
+  </head>
+  <body>
+    <main class="panel">
+      <h1>Settings</h1>
+      <p class="lede">Preferences are saved under your OS userData folder.</p>
+
+      <label class="row">
+        <span>
+          <strong>Launch at login</strong>
+          <small>Uses Electron login-item settings when the platform supports it.</small>
+        </span>
+        <input type="checkbox" id="launch-at-login" />
+      </label>
+
+      <label class="row">
+        <span>
+          <strong>Minimize to tray on close</strong>
+          <small>Closing the window hides the app in the system tray.</small>
+        </span>
+        <input type="checkbox" id="minimize-to-tray" />
+      </label>
+
+      <section class="card">
+        <h2>Updates</h2>
+        <p id="update-summary" class="muted">…</p>
+        <button type="button" class="primary-btn" id="check-updates">Check for updates</button>
+      </section>
+
+      <p class="status" id="save-status" aria-live="polite"></p>
+    </main>
+    <script src="./settings.js"></script>
+  </body>
+</html>

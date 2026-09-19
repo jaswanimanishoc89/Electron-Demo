@@ -1,6 +1,10 @@
 # Electron-Demo
 
-A small starter Electron desktop app with a secure main / preload / renderer split.
+A small starter Electron desktop app with a secure main / preload / renderer split, plus:
+
+- **System tray** — show/hide window, open settings, quit
+- **Settings page** — launch at login toggle (stubbed), minimize-to-tray, check for updates
+- **Auto-update stub** — simulated update check; ready to swap for `electron-updater` when you package the app
 
 ## Requirements
 
@@ -20,12 +24,17 @@ npm start
 
 ```
 src/
-  main.js      # Electron main process (window + app lifecycle)
-  preload.js   # contextBridge API exposed to the renderer
+  main.js           # App lifecycle, windows, tray
+  preload.js        # contextBridge API for the renderer
+  settings-store.js # Persist settings under userData
+  updater.js        # Auto-update stub
   renderer/
-    index.html
+    index.html      # Home UI
     styles.css
     renderer.js
+    settings.html   # Settings UI
+    settings.css
+    settings.js
 ```
 
 ## Security defaults
@@ -33,3 +42,7 @@ src/
 - `contextIsolation: true`
 - `nodeIntegration: false`
 - Renderer talks to privileged APIs only through the preload `contextBridge`
+
+## Auto-update note
+
+`src/updater.js` is a **stub**. In packaged builds, replace the simulated check with [`electron-updater`](https://www.electron.build/auto-update) (or your platform’s update channel) and keep the same preload/renderer surface.

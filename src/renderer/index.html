@@ -12,12 +12,20 @@
   </head>
   <body>
     <main class="shell">
-      <p class="eyebrow">Electron starter</p>
+      <header class="topbar">
+        <p class="eyebrow">Electron starter</p>
+        <button type="button" class="ghost-btn" id="open-settings">Settings</button>
+      </header>
       <h1>Hello from Electron-Demo</h1>
       <p class="lede">
-        Main process, preload bridge, and renderer UI — ready for you to extend.
+        Tray icon, settings, and an update-check stub are wired up. Close the window to
+        minimize to tray (toggle in Settings).
       </p>
       <dl class="versions" id="versions" aria-live="polite">
+        <div>
+          <dt>App</dt>
+          <dd id="app-version">…</dd>
+        </div>
         <div>
           <dt>Electron</dt>
           <dd id="electron-version">…</dd>
@@ -34,7 +42,15 @@
           <dt>Platform</dt>
           <dd id="platform">…</dd>
         </div>
+        <div>
+          <dt>Updates</dt>
+          <dd id="update-status">…</dd>
+        </div>
       </dl>
+      <div class="actions">
+        <button type="button" class="primary-btn" id="check-updates">Check for updates</button>
+        <p class="hint" id="update-message"></p>
+      </div>
     </main>
     <script src="./renderer.js"></script>
   </body>
