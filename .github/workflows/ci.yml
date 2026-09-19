@@ -26,6 +26,11 @@ jobs:
           node-version: "20"
           cache: npm
 
+      - name: Install OS deps for Electron
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgtk-3-0 libnotify4 libnss3 libxss1 libxtst6 xauth libgbm1 libasound2t64 || sudo apt-get install -y xvfb libgtk-3-0 libnotify4 libnss3 libxss1 libxtst6 xauth libgbm1 libasound2
+
       - name: Install dependencies
         run: npm install
 
@@ -36,7 +41,4 @@ jobs:
         run: npm test
 
       - name: Electron headless smoke
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y xvfb
-          xvfb-run -a npm run smoke
+        run: xvfb-run -a npm run smoke

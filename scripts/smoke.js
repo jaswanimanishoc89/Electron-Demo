@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 /**
  * Headless Electron smoke: boot the app briefly, then exit.
  * On CI Linux, run under xvfb-run.
@@ -17,7 +17,12 @@ if (!fs.existsSync(electronBin)) {
   process.exit(1);
 }
 
-const child = spawn(electronBin, ['.'], {
+const args = ['.'];
+if (process.env.CI) {
+  args.push('--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage');
+}
+
+const child = spawn(electronBin, args, {
   cwd: root,
   env: {
     ...process.env,
@@ -33,7 +38,7 @@ child.stderr.on('data', (chunk) => {
 
 const killTimer = setTimeout(() => {
   child.kill('SIGTERM');
-}, 5000);
+}, 8000);
 
 child.on('error', (err) => {
   clearTimeout(killTimer);
@@ -44,10 +49,10 @@ child.on('error', (err) => {
 child.on('exit', (code, signal) => {
   clearTimeout(killTimer);
   if (signal === 'SIGTERM' || code === 0) {
-    console.log('smoke passed (Electron stayed up ~5s)');
+    console.log('smoke passed (Electron stayed up)');
     process.exit(0);
   }
   console.error('Electron exited unexpectedly', { code, signal });
-  if (stderr) console.error(stderr.slice(-2000));
+  if (stderr) console.error(stderr.slice(-4000));
   process.exit(1);
 });
