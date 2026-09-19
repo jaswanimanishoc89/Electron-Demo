@@ -1,7 +1,7 @@
 {
   "name": "electron-demo",
   "version": "1.0.0",
-  "description": "Starter Electron desktop app with tray, settings, and update stub",
+  "description": "Game Hub \u2014 Epic Games library browser for Electron-Demo",
   "main": "src/main.js",
   "scripts": {
     "postinstall": "node scripts/ensure-electron.js",

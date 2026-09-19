@@ -4,54 +4,117 @@
     <meta charset="UTF-8" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Electron Demo</title>
+    <title>Game Hub</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="shell">
-      <header class="topbar">
-        <p class="eyebrow">Electron starter</p>
-        <button type="button" class="ghost-btn" id="open-settings">Settings</button>
-      </header>
-      <h1>Hello from Electron-Demo</h1>
-      <p class="lede">
-        Tray icon, settings, and an update-check stub are wired up. Close the window to
-        minimize to tray (toggle in Settings).
-      </p>
-      <dl class="versions" id="versions" aria-live="polite">
-        <div>
-          <dt>App</dt>
-          <dd id="app-version">…</dd>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">GH</span>
+          <div>
+            <strong>Game Hub</strong>
+            <small>Epic library</small>
+          </div>
         </div>
-        <div>
-          <dt>Electron</dt>
-          <dd id="electron-version">…</dd>
+        <nav class="nav">
+          <button type="button" class="nav-item active" data-view="library">Library</button>
+          <button type="button" class="nav-item" data-view="settings">Settings</button>
+        </nav>
+      </aside>
+
+      <section class="main" id="view-library">
+        <header class="toolbar">
+          <div>
+            <h1>Library</h1>
+            <p class="sub" id="library-sub">Epic Games</p>
+          </div>
+          <div class="toolbar-actions">
+            <button type="button" class="ghost-btn" id="btn-scan">Scan</button>
+            <div class="segment" role="group" aria-label="View mode">
+              <button type="button" class="segment-btn active" data-mode="grid">Grid</button>
+              <button type="button" class="segment-btn" data-mode="list">List</button>
+            </div>
+          </div>
+        </header>
+        <div class="banner hidden" id="scan-banner" role="status"></div>
+        <div id="library-body" class="library-body"></div>
+      </section>
+
+      <section class="main hidden" id="view-settings">
+        <header class="toolbar">
+          <div>
+            <h1>Settings</h1>
+            <p class="sub">General, library, and app updates</p>
+          </div>
+        </header>
+        <div class="settings-stack">
+          <section class="card">
+            <h2>General</h2>
+            <label class="row">
+              <span>
+                <strong>Launch at login</strong>
+                <small>Start Game Hub when you sign in.</small>
+              </span>
+              <input type="checkbox" id="launch-at-login" />
+            </label>
+            <label class="row">
+              <span>
+                <strong>Minimize to tray on close</strong>
+                <small>Closing the window keeps Game Hub in the tray.</small>
+              </span>
+              <input type="checkbox" id="minimize-to-tray" />
+            </label>
+            <p class="hint">Appearance: dark theme only for MVP.</p>
+          </section>
+
+          <section class="card">
+            <h2>Library</h2>
+            <p class="muted" id="settings-library-summary">…</p>
+            <button type="button" class="primary-btn" id="settings-scan">Scan Epic library</button>
+          </section>
+
+          <section class="card">
+            <h2>App updates</h2>
+            <p class="muted" id="settings-update-summary">…</p>
+            <button type="button" class="primary-btn" id="settings-check-updates">Check for updates</button>
+          </section>
         </div>
-        <div>
-          <dt>Chrome</dt>
-          <dd id="chrome-version">…</dd>
+      </section>
+
+      <aside class="drawer hidden" id="drawer" aria-label="Game detail">
+        <button type="button" class="ghost-btn drawer-back" id="drawer-close">← Library</button>
+        <div class="drawer-cover" id="drawer-cover"></div>
+        <h2 id="drawer-title">Title</h2>
+        <div class="drawer-meta">
+          <span class="pill">Epic</span>
+          <span class="badge" id="drawer-badge">Unknown</span>
         </div>
-        <div>
-          <dt>Node</dt>
-          <dd id="node-version">…</dd>
+        <div class="drawer-actions">
+          <button type="button" class="primary-btn" id="drawer-play">Play</button>
+          <button type="button" class="ghost-btn" id="drawer-update">Check for updates</button>
+          <button type="button" class="ghost-btn" id="drawer-epic">Open in Epic</button>
         </div>
-        <div>
-          <dt>Platform</dt>
-          <dd id="platform">…</dd>
-        </div>
-        <div>
-          <dt>Updates</dt>
-          <dd id="update-status">…</dd>
-        </div>
-      </dl>
-      <div class="actions">
-        <button type="button" class="primary-btn" id="check-updates">Check for updates</button>
-        <p class="hint" id="update-message"></p>
-      </div>
-    </main>
-    <script src="./renderer.js"></script>
+        <dl class="drawer-facts">
+          <div>
+            <dt>Last played</dt>
+            <dd id="drawer-last-played">—</dd>
+          </div>
+          <div>
+            <dt>Install path</dt>
+            <dd id="drawer-path">—</dd>
+          </div>
+          <div>
+            <dt>Update</dt>
+            <dd id="drawer-update-msg">—</dd>
+          </div>
+        </dl>
+        <p class="status" id="drawer-status" aria-live="polite"></p>
+      </aside>
+    </div>
+    <script src="./app.js"></script>
   </body>
 </html>

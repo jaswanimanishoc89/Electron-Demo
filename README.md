@@ -1,14 +1,11 @@
-# Electron-Demo
+# Game Hub (Electron-Demo)
 
-A small starter Electron desktop app with a secure main / preload / renderer split, plus:
-
-- **System tray** — show/hide window, open settings, quit
-- **Settings page** — launch at login toggle (stubbed), minimize-to-tray, check for updates
-- **Auto-update stub** — simulated update check; ready to swap for `electron-updater` when you package the app
+Windows-first **Game Hub** for your **Epic Games** library — browse installed titles, see update badges (stub for MVP), and launch games.
 
 ## Requirements
 
-- Node.js 18+ (Node 20 LTS recommended; Node 24 works once the Electron binary is present)
+- Node.js 18+ (Node 20 LTS recommended)
+- Windows for Epic discovery (other platforms show empty / not-detected)
 - npm
 
 ## Setup
@@ -18,24 +15,24 @@ npm install
 npm start
 ```
 
-`npm run dev` does the same thing as `npm start` for this starter.
-
 ### Windows: `Electron failed to install correctly`
-
-Sometimes npm finishes before the Electron binary is extracted. Fix with:
 
 ```bash
 npm run repair:electron
 npm start
 ```
 
-Or delete `node_modules/electron` and run `npm install` again (needs network).
+## Features (MVP)
+
+- Epic Games library scan (manifests under ProgramData)
+- Library grid / list + game detail drawer
+- Launch via Epic protocol (exe fallback)
+- Settings: launch at login, minimize to tray, app update stub
+- Cover art: placeholders (monograms)
 
 ## CI & contributing
 
-Pull requests and pushes to `main` run GitHub Actions CI (`npm install`, `npm run check`, `npm test`, headless Electron smoke).
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for branch naming, the PR checklist, and branch-protection setup.
+PRs and `main` run GitHub Actions (`check`, `test`, `smoke`). See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ```bash
 npm run check
@@ -47,30 +44,15 @@ npm run smoke
 
 ```
 src/
-  main.js           # App lifecycle, windows, tray
-  preload.js        # contextBridge API for the renderer
-  settings-store.js # Persist settings under userData
-  updater.js        # Auto-update stub
-  renderer/
-    index.html      # Home UI
-    styles.css
-    renderer.js
-    settings.html   # Settings UI
-    settings.css
-    settings.js
+  main.js
+  preload.js
+  library/          # Epic discovery + library service
+  renderer/         # Game Hub UI shell
+  settings-store.js
+  updater.js
 scripts/
-  ensure-electron.js  # Repairs a missing Electron binary after install
-  check.js            # Syntax + structure checks
-  test-updater.js     # Updater unit smoke
-  smoke.js            # Headless Electron boot smoke
+  check.js
+  test-updater.js
+  smoke.js
+  ensure-electron.js
 ```
-
-## Security defaults
-
-- `contextIsolation: true`
-- `nodeIntegration: false`
-- Renderer talks to privileged APIs only through the preload `contextBridge`
-
-## Auto-update note
-
-`src/updater.js` is a **stub**. In packaged builds, replace the simulated check with [`electron-updater`](https://www.electron.build/auto-update) (or your platform’s update channel) and keep the same preload/renderer surface.
