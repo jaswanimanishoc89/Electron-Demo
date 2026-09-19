@@ -1,25 +1,25 @@
 {
-  "name": "electron-demo",
-  "version": "1.0.0",
-  "description": "Game Hub \u2014 Epic Games library browser for Electron-Demo",
-  "main": "src/main.js",
-  "scripts": {
-    "postinstall": "node scripts/ensure-electron.js",
-    "start": "electron .",
-    "dev": "electron .",
-    "repair:electron": "node scripts/ensure-electron.js",
-    "check": "node scripts/check.js",
-    "test": "node scripts/test-updater.js",
-    "smoke": "node scripts/smoke.js"
-  },
-  "keywords": [
-    "electron",
-    "desktop",
-    "demo"
-  ],
-  "author": "jaswanimanishoc89",
-  "license": "MIT",
-  "devDependencies": {
-    "electron": "^34.0.0"
-  }
+    "name": "electron-demo",
+    "version": "1.0.0",
+    "description": "Game Hub — Epic Games library browser for Electron-Demo",
+    "main": "src/main.js",
+    "scripts": {
+        "postinstall": "node scripts/ensure-electron.js",
+        "start": "electron .",
+        "dev": "electron .",
+        "repair:electron": "node scripts/ensure-electron.js",
+        "check": "node scripts/check.js",
+        "test": "node scripts/test-updater.js",
+        "smoke": "node scripts/smoke.js"
+    },
+    "keywords": [
+        "electron",
+        "desktop",
+        "demo"
+    ],
+    "author": "jaswanimanishoc89",
+    "license": "MIT",
+    "devDependencies": {
+        "electron": "^44.4.3"
+    }
 }
