@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 /**
  * Headless Electron smoke: boot the app briefly, then exit.
  * On CI Linux, run under xvfb-run.
