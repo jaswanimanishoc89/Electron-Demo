@@ -31,6 +31,18 @@ npm start
 
 Or delete `node_modules/electron` and run `npm install` again (needs network).
 
+## CI & contributing
+
+Pull requests and pushes to `main` run GitHub Actions CI (`npm install`, `npm run check`, `npm test`, headless Electron smoke).
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for branch naming, the PR checklist, and branch-protection setup.
+
+```bash
+npm run check
+npm test
+npm run smoke
+```
+
 ## Project structure
 
 ```
@@ -48,6 +60,9 @@ src/
     settings.js
 scripts/
   ensure-electron.js  # Repairs a missing Electron binary after install
+  check.js            # Syntax + structure checks
+  test-updater.js     # Updater unit smoke
+  smoke.js            # Headless Electron boot smoke
 ```
 
 ## Security defaults
