@@ -34,8 +34,10 @@ const required = [
   'src/preload.js',
   'src/updater.js',
   'src/settings-store.js',
+  'src/library/epic-discovery.js',
+  'src/library/service.js',
   'src/renderer/index.html',
-  'src/renderer/settings.html',
+  'src/renderer/app.js',
   'scripts/ensure-electron.js',
 ];
 for (const rel of required) {
