@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Electron Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <p class="eyebrow">Electron starter</p>
+      <h1>Hello from Electron-Demo</h1>
+      <p class="lede">
+        Main process, preload bridge, and renderer UI — ready for you to extend.
+      </p>
+      <dl class="versions" id="versions" aria-live="polite">
+        <div>
+          <dt>Electron</dt>
+          <dd id="electron-version">…</dd>
+        </div>
+        <div>
+          <dt>Chrome</dt>
+          <dd id="chrome-version">…</dd>
+        </div>
+        <div>
+          <dt>Node</dt>
+          <dd id="node-version">…</dd>
+        </div>
+        <div>
+          <dt>Platform</dt>
+          <dd id="platform">…</dd>
+        </div>
+      </dl>
+    </main>
+    <script src="./renderer.js"></script>
+  </body>
+</html>

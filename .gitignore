@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Build / packaging
+dist/
+out/
+release/
+*.AppImage
+*.dmg
+*.exe
+*.deb
+*.rpm
+
+# Logs & caches
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+.cache/
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
