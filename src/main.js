@@ -11,9 +11,9 @@ let settingsWindow = null;
 let tray = null;
 let isQuitting = false;
 
-// Tiny 16×16 blue PNG used for the tray icon (no external asset required).
+// Tray icon: prefer assets/tray-icon.png; fall back to embedded PNG (Windows requires a real icon).
 const TRAY_ICON_DATA_URL =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAPElEQVQ4T2NkYGD4z0ABYBzVMKoBBgYGBob/jP8ZGLFJMPxnYGBg+M8wGgajYTAaBqNhMBoGo2EwGgbDMQwAAPYHBf0mF7oAAAAASUVORK5CYII=';
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAd0lEQVR42mNgGErAtv7BHWLwgFhKE8egGxY99/9/YjBVHEGOxfgcQnfLyXYEtSzG5RC6+ZzkkKCl5UQ5gtaWE4yKAXUAvSzH6YhRB4w6YNQBow4YcAeM1gWDojoe8AbJoGiSDYpG6aBolg+Kjsmg6JoNis4prQEACkw2+QyiBlcAAAAASUVORK5CYII=';
 
 function windowOptions(extra = {}) {
   return {
@@ -103,12 +103,33 @@ function buildTrayMenu() {
   ]);
 }
 
+function loadTrayIcon() {
+  const iconPath = path.join(__dirname, '..', 'assets', 'tray-icon.png');
+  let icon = nativeImage.createFromPath(iconPath);
+  if (icon.isEmpty()) {
+    icon = nativeImage.createFromDataURL(TRAY_ICON_DATA_URL);
+  }
+  if (!icon.isEmpty() && process.platform === 'win32') {
+    // Windows tray looks sharper with a modest size.
+    icon = icon.resize({ width: 16, height: 16 });
+  }
+  return icon;
+}
+
 function createTray() {
-  const icon = nativeImage.createFromDataURL(TRAY_ICON_DATA_URL);
-  tray = new Tray(icon.isEmpty() ? nativeImage.createEmpty() : icon);
-  tray.setToolTip('Electron Demo');
-  tray.setContextMenu(buildTrayMenu());
-  tray.on('double-click', () => showMainWindow());
+  try {
+    const icon = loadTrayIcon();
+    if (icon.isEmpty()) {
+      console.warn('Tray icon is empty; skipping tray on this platform.');
+      return;
+    }
+    tray = new Tray(icon);
+    tray.setToolTip('Electron Demo');
+    tray.setContextMenu(buildTrayMenu());
+    tray.on('double-click', () => showMainWindow());
+  } catch (err) {
+    console.warn('Failed to create system tray:', err);
+  }
 }
 
 function registerIpc() {
